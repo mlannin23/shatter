@@ -1,10 +1,22 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= title %></title>
+    <title>Shatter Magazine</title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
   </head>
   <body>
-    <p>Homepage for Shatter Magazine</p>
+    <h2>Featured Posts</h2> 
+    <% for (i = 0; i < featuredPosts.length; i++) { %>
+      <img src="<%= featuredPosts[i].thumbnailUrl %>">
+      <a href="<%= featuredPosts[i].url %>"><h4><%= featuredPosts[i].title %></h4></a>
+      by <%= featuredPosts[i].author.name %>
+    <% } %>
+
+    <h2>Recent Posts</h2> 
+    <% for (i = 0; i < recentPosts.length; i++) { %>
+      <img src="<%= featuredPosts[i].thumbnailUrl %>">
+      <a href="<%= featuredPosts[i].url %>"><h4><%= featuredPosts[i].title %></h4></a>
+      by <%= featuredPosts[i].author.name %>
+    <% } %>
   </body>
 </html>
