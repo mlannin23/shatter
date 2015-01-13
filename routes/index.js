@@ -15,7 +15,7 @@ router.get('/', function(req, res) {
             for (i = 0; i < posts.length; i++) {
                 var title = posts[i].title,
                     author = posts[i].author,
-                    thumbnailUrl = posts[i].thumbnail_images.medium.url,
+                    thumbnailUrl = (posts[i].thumbnail_images) ? posts[i].thumbnail_images.medium.url : 'http://placehold.it/300x200',
                     url = '/article?id=' + posts[i].id;
                 
                 featuredPosts.push({
@@ -36,7 +36,7 @@ router.get('/', function(req, res) {
                     for (i = 0; i < posts.length; i++) {
                         var title = posts[i].title,
                             author = posts[i].author,
-                            thumbnailUrl = posts[i].thumbnail_images.medium.url,
+                            thumbnailUrl = (posts[i].thumbnail_images) ? posts[i].thumbnail_images.medium.url : false,
                             url = '/article?id=' + posts[i].id;
                         
                         recentPosts.push({
