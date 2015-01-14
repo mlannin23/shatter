@@ -8,15 +8,15 @@ router.get('/', function(req, res) {
     //get featured posts
     request('http://ec2-54-67-30-230.us-west-1.compute.amazonaws.com/?json=get_tag_posts&slug=featured', function(error, response, body) {
         if (!error && response.statusCode == 200) {
-            var posts = JSON.parse(body).posts,
+            var rawPosts = JSON.parse(body).posts,
                 featuredPosts = [],
                 i;
 
-            for (i = 0; i < posts.length; i++) {
-                var title = posts[i].title,
-                    author = posts[i].author,
-                    thumbnailUrl = (posts[i].thumbnail_images) ? posts[i].thumbnail_images.medium.url : 'http://placehold.it/300x200',
-                    url = '/article?id=' + posts[i].id;
+            for (i = 0; i < rawPosts.length; i++) {
+                var title = rawPosts[i].title,
+                    author = rawPosts[i].author,
+                    thumbnailUrl = (rawPosts[i].thumbnail_images) ? rawPosts[i].thumbnail_images.medium.url : 'http://placehold.it/300x200',
+                    url = '/articles/' + rawPosts[i].id;
                 
                 featuredPosts.push({
                     'title': title,
@@ -29,15 +29,15 @@ router.get('/', function(req, res) {
             //get latest posts
             request('http://ec2-54-67-30-230.us-west-1.compute.amazonaws.com/?json=get_recent_posts', function(error, response, body) {
                 if (!error && response.statusCode == 200) {
-                    var posts = JSON.parse(body).posts,
+                    var rawPosts = JSON.parse(body).posts,
                         recentPosts = [],
                         i;
 
-                    for (i = 0; i < posts.length; i++) {
-                        var title = posts[i].title,
-                            author = posts[i].author,
-                            thumbnailUrl = (posts[i].thumbnail_images) ? posts[i].thumbnail_images.medium.url : false,
-                            url = '/article?id=' + posts[i].id;
+                    for (i = 0; i < rawPosts.length; i++) {
+                        var title = rawPosts[i].title,
+                            author = rawPosts[i].author,
+                            thumbnailUrl = (rawPosts[i].thumbnail_images) ? rawPosts[i].thumbnail_images.medium.url : false,
+                            url = '/articles/' + rawPosts[i].id;
                         
                         recentPosts.push({
                             'title': title,
@@ -58,8 +58,30 @@ router.get('/', function(req, res) {
 });
 
 /* GET article page */
-router.get('/article', function(req, res) {
-    res.render('article', { title: 'Article Title' });
+router.get('/articles/:id', function(req, res) {
+
+    //get article
+    request('http://ec2-54-67-30-230.us-west-1.compute.amazonaws.com/?json=get_post&id=' + req.params.id, function(error, response, body) {
+        if (!error && response.statusCode == 200) {
+            var months = [ 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December' ],
+                rawPost = JSON.parse(body).post,
+                title = rawPost.title,
+                content = rawPost.content,
+                rawDate = new Date(rawPost.date),
+                date = months[rawDate.getMonth()] + ' ' + rawDate.getDate() + ', ' + rawDate.getFullYear(),
+                author = rawPost.author,
+                post = {
+                    'title': title,
+                    'content': content,
+                    'date': date,
+                    'author': author
+                };
+
+            res.render('article', {
+                post: post 
+            });
+        }
+    });
 });
 
 module.exports = router;
