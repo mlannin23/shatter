@@ -7,6 +7,9 @@
     <link rel='stylesheet' href='/stylesheets/bootstrap.min.css' />
     <link rel='stylesheet' href='/stylesheets/base.css' />
     <link rel='stylesheet' href='/stylesheets/index.css' />
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="/javascripts/bootstrap.min.js"></script>
   </head>
   <body>
     <header class="header">
@@ -15,14 +18,25 @@
       </div>
     </header>
 
-    <nav class="navigation">
+    <nav class="navbar navbar-default navbar-static-top">
       <div class="container-fluid">
-        <ul class="categories">
-          <li><a href="#">Hype</a></li>
-          <li><a href="#">Think</a></li>
-          <li><a href="#">Expose</a></li>
-          <li><a href="#">Real Talk</a></li>
-        </ul>
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+        </div>
+
+        <div class="collapse navbar-collapse" id="collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="#">Hype</a></li>
+            <li><a href="#">Think</a></li>
+            <li><a href="#">Expose</a></li>
+            <li><a href="#">Real Talk</a></li>
+          </ul>
+        </div>
       </div>
     </nav>
 
