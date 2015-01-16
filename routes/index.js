@@ -5,41 +5,35 @@ var request = require('request');
 /* GET home page. */
 router.get('/', function(req, res) {
 
-    //get featured posts
-    request('http://ec2-54-67-30-230.us-west-1.compute.amazonaws.com/?json=get_tag_posts&slug=feature', function(error, response, body) {
+    //get main featured post
+    request('http://ec2-54-67-30-230.us-west-1.compute.amazonaws.com/?json=get_tag_posts&slug=main-feature&count=1', function(error, response, body) {
         if (!error && response.statusCode == 200) {
-            var rawPosts = JSON.parse(body).posts,
-                featuredPosts = [],
-                i;
-
-            for (i = 0; i < rawPosts.length; i++) {
-                var title = rawPosts[i].title,
-                    author = rawPosts[i].author,
-                    thumbnailUrl = (rawPosts[i].thumbnail_images) ? rawPosts[i].thumbnail_images.medium.url : 'http://placehold.it/300x200',
-                    url = '/articles/' + rawPosts[i].id;
-                
-                featuredPosts.push({
+            var rawPost = JSON.parse(body).posts[0],
+                title = rawPost.title,
+                author = rawPost.author,
+                thumbnailUrl = (rawPost.thumbnail_images) ? rawPost.thumbnail_images.medium.url : 'http://placehold.it/300x200',
+                url = '/articles/' + rawPost.id;
+                mainFeaturedPost = {
                     'title': title,
                     'author': author,
                     'thumbnailUrl': thumbnailUrl,
                     'url': url
-                });
-            }
+                };
 
-            //get latest posts
-            request('http://ec2-54-67-30-230.us-west-1.compute.amazonaws.com/?json=get_recent_posts', function(error, response, body) {
+            //get featured posts
+            request('http://ec2-54-67-30-230.us-west-1.compute.amazonaws.com/?json=get_tag_posts&slug=feature&count=2', function(error, response, body) {
                 if (!error && response.statusCode == 200) {
                     var rawPosts = JSON.parse(body).posts,
-                        recentPosts = [],
+                        featuredPosts = [],
                         i;
 
                     for (i = 0; i < rawPosts.length; i++) {
                         var title = rawPosts[i].title,
                             author = rawPosts[i].author,
-                            thumbnailUrl = (rawPosts[i].thumbnail_images) ? rawPosts[i].thumbnail_images.medium.url : false,
+                            thumbnailUrl = (rawPosts[i].thumbnail_images) ? rawPosts[i].thumbnail_images.medium.url : 'http://placehold.it/300x200',
                             url = '/articles/' + rawPosts[i].id;
                         
-                        recentPosts.push({
+                        featuredPosts.push({
                             'title': title,
                             'author': author,
                             'thumbnailUrl': thumbnailUrl,
@@ -47,9 +41,33 @@ router.get('/', function(req, res) {
                         });
                     }
 
-                    res.render('index', { 
-                        featuredPosts: featuredPosts,
-                        recentPosts: recentPosts
+                    //get latest posts
+                    request('http://ec2-54-67-30-230.us-west-1.compute.amazonaws.com/?json=get_recent_posts', function(error, response, body) {
+                        if (!error && response.statusCode == 200) {
+                            var rawPosts = JSON.parse(body).posts,
+                                recentPosts = [],
+                                i;
+
+                            for (i = 0; i < rawPosts.length; i++) {
+                                var title = rawPosts[i].title,
+                                    author = rawPosts[i].author,
+                                    thumbnailUrl = (rawPosts[i].thumbnail_images) ? rawPosts[i].thumbnail_images.medium.url : false,
+                                    url = '/articles/' + rawPosts[i].id;
+                                
+                                recentPosts.push({
+                                    'title': title,
+                                    'author': author,
+                                    'thumbnailUrl': thumbnailUrl,
+                                    'url': url
+                                });
+                            }
+
+                            res.render('index', { 
+                                mainFeaturedPost: mainFeaturedPost,
+                                featuredPosts: featuredPosts,
+                                recentPosts: recentPosts
+                            });
+                        }
                     });
                 }
             });

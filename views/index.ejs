@@ -13,6 +13,12 @@
         <h1>shatter magazine</h1>
       </div>
     </div>
+
+    <h2>Main Featured Post</h2> 
+    <img src="<%= mainFeaturedPost.thumbnailUrl %>">
+    <a href="<%= mainFeaturedPost.url %>"><h4><%= mainFeaturedPost.title %></h4></a>
+    <p>by <%= mainFeaturedPost.author.name %></p>
+
     <h2>Featured Posts</h2> 
     <% for (i = 0; i < featuredPosts.length; i++) { %>
       <img src="<%= featuredPosts[i].thumbnailUrl %>">
