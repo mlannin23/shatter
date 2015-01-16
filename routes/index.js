@@ -51,7 +51,7 @@ router.get('/', function(req, res) {
                             for (i = 0; i < rawPosts.length; i++) {
                                 var title = rawPosts[i].title,
                                     author = rawPosts[i].author,
-                                    thumbnailUrl = (rawPosts[i].thumbnail_images) ? rawPosts[i].thumbnail_images.medium.url : false,
+                                    thumbnailUrl = (rawPosts[i].thumbnail_images) ? rawPosts[i].thumbnail_images.thumbnail.url : false,
                                     url = '/articles/' + rawPosts[i].id;
                                 
                                 recentPosts.push({
