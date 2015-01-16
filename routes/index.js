@@ -11,7 +11,7 @@ router.get('/', function(req, res) {
             var rawPost = JSON.parse(body).posts[0],
                 title = rawPost.title,
                 author = rawPost.author,
-                thumbnailUrl = (rawPost.thumbnail_images) ? rawPost.thumbnail_images.medium.url : 'http://placehold.it/300x200',
+                thumbnailUrl = (rawPost.thumbnail) ? rawPost.thumbnail : 'http://placehold.it/825x510',
                 url = '/articles/' + rawPost.id;
                 mainFeaturedPost = {
                     'title': title,

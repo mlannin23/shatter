@@ -40,17 +40,29 @@
       </div>
     </nav>
 
-    <h2>Main Featured Post</h2> 
-    <img src="<%= mainFeaturedPost.thumbnailUrl %>">
-    <a href="<%= mainFeaturedPost.url %>"><h4><%= mainFeaturedPost.title %></h4></a>
-    <p>by <%= mainFeaturedPost.author.name %></p>
-
-    <h2>Featured Posts</h2> 
-    <% for (i = 0; i < featuredPosts.length; i++) { %>
-      <img src="<%= featuredPosts[i].thumbnailUrl %>">
-      <a href="<%= featuredPosts[i].url %>"><h4><%= featuredPosts[i].title %></h4></a>
-      <p>by <%= featuredPosts[i].author.name %></p>
-    <% } %>
+    <div class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-sm-8">
+            <div class="main-feature">
+              <img src="<%= mainFeaturedPost.thumbnailUrl %>" class="img-responsive">
+              <a href="<%= mainFeaturedPost.url %>"><h2><%= mainFeaturedPost.title %></h2></a>
+              <p>by <%= mainFeaturedPost.author.name %></p>
+            </div>
+            <div class="feature-1">
+              <img src="<%= featuredPosts[0].thumbnailUrl %>" class="img-responsive">
+              <a href="<%= featuredPosts[0].url %>"><h2><%= featuredPosts[0].title %></h2></a>
+              <p>by <%= featuredPosts[0].author.name %></p>
+            </div>
+            <div class="feature-2">
+              <img src="<%= featuredPosts[1].thumbnailUrl %>" class="img-responsive">
+              <a href="<%= featuredPosts[1].url %>"><h2><%= featuredPosts[1].title %></h2></a>
+              <p>by <%= featuredPosts[1].author.name %></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <h2>Recent Posts</h2> 
     <% for (i = 0; i < recentPosts.length; i++) { %>

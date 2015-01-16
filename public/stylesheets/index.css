@@ -37,3 +37,29 @@
     text-align: center;
   }
 }
+
+.content {
+  padding-top: 20px;
+}
+.main-feature {
+  text-align: center;
+}
+.main-feature h2 {
+  font-size: 32px;
+}
+.feature-1, .feature-2 {
+  height: 230px;
+  padding: 20px 0 10px;
+}
+.feature-1 h2, .feature-2 h2 {
+  margin-top: 10px;
+  font-size: 24px;
+}
+.feature-1 img {
+  float: left;
+  margin-right: 15px;
+}
+.feature-2 img {
+  float: right;
+  margin-left: 15px;
+}
