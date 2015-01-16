@@ -2,9 +2,17 @@
 <html>
   <head>
     <title>Shatter Magazine</title>
+
+    <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Merriweather:300,300italic,400,400italic,700,700italic' type='text/css'>
     <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel='stylesheet' href='/stylesheets/index.css' />
   </head>
   <body>
+    <div class="header">
+      <div class="container">
+        <h1>shatter magazine</h1>
+      </div>
+    </div>
     <h2>Featured Posts</h2> 
     <% for (i = 0; i < featuredPosts.length; i++) { %>
       <img src="<%= featuredPosts[i].thumbnailUrl %>">
