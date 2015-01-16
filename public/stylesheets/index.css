@@ -7,3 +7,27 @@
   font-size: 54px;
   font-weight: 300;
 }
+
+.navigation {
+  min-height: 60px;
+  border-bottom: 1px solid #e5e5e5;
+}
+.categories {
+  padding-left: 0;
+  margin: 0;
+}
+.categories li {
+  float: left;
+  display: block;
+  width: 25%;
+}
+.categories li a {
+  position: relative;
+  display: block;
+  padding: 22px 0;
+  text-align: center;
+}
+.categories li a:hover {
+  text-decoration: none;
+  background-color: #e5e5e5;
+}
