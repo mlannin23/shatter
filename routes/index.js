@@ -6,7 +6,7 @@ var request = require('request');
 router.get('/', function(req, res) {
 
     //get featured posts
-    request('http://ec2-54-67-30-230.us-west-1.compute.amazonaws.com/?json=get_tag_posts&slug=featured', function(error, response, body) {
+    request('http://ec2-54-67-30-230.us-west-1.compute.amazonaws.com/?json=get_tag_posts&slug=feature', function(error, response, body) {
         if (!error && response.statusCode == 200) {
             var rawPosts = JSON.parse(body).posts,
                 featuredPosts = [],
