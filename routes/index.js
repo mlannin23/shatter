@@ -11,7 +11,7 @@ router.get('/', function(req, res) {
 router.get('/home', function(req, res) {
 
     //get main featured post
-    request('http://ec2-54-67-30-230.us-west-1.compute.amazonaws.com/?json=get_tag_posts&slug=main-feature&count=1', function(error, response, body) {
+    request('http://publish.the-backseat.com/?json=get_tag_posts&slug=main-feature&count=1', function(error, response, body) {
         if (!error && response.statusCode == 200) {
             var rawPost = JSON.parse(body).posts[0],
                 title = rawPost.title,
@@ -26,7 +26,7 @@ router.get('/home', function(req, res) {
                 };
 
             //get featured posts
-            request('http://ec2-54-67-30-230.us-west-1.compute.amazonaws.com/?json=get_tag_posts&slug=feature&count=2', function(error, response, body) {
+            request('http://publish.the-backseat.com/?json=get_tag_posts&slug=feature&count=2', function(error, response, body) {
                 if (!error && response.statusCode == 200) {
                     var rawPosts = JSON.parse(body).posts,
                         featuredPosts = [],
@@ -47,7 +47,7 @@ router.get('/home', function(req, res) {
                     }
 
                     //get latest posts
-                    request('http://ec2-54-67-30-230.us-west-1.compute.amazonaws.com/?json=get_recent_posts', function(error, response, body) {
+                    request('http://publish.the-backseat.com/?json=get_recent_posts', function(error, response, body) {
                         if (!error && response.statusCode == 200) {
                             var rawPosts = JSON.parse(body).posts,
                                 recentPosts = [],
@@ -84,7 +84,7 @@ router.get('/home', function(req, res) {
 router.get('/articles/:id', function(req, res) {
 
     //get article
-    request('http://ec2-54-67-30-230.us-west-1.compute.amazonaws.com/?json=get_post&id=' + req.params.id, function(error, response, body) {
+    request('http://publish.the-backseat.com/?json=get_post&id=' + req.params.id, function(error, response, body) {
         if (!error && response.statusCode == 200) {
             var months = [ 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December' ],
                 rawPost = JSON.parse(body).post,
