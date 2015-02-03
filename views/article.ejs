@@ -7,12 +7,28 @@
 
     <title><%= post.title %> | The Backseat</title>
 
+    <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Merriweather:300,300italic,400,400italic,700,700italic' type='text/css'>
+    <link rel='stylesheet' href='/stylesheets/bootstrap.min.css' />
     <link rel='stylesheet' href='/stylesheets/base.css' />
+    <link rel='stylesheet' href='/stylesheets/article.css' />
   </head>
   <body>
-    <h1><%= post.title %></h1>
-    <p><%= post.date %></p>
-    <p><%= post.author.name %></p>
-    <p><%- post.content %></p>
+    <header class="header">
+      <div class="container-fluid">
+        <h1>the backseat</h1>
+      </div>
+    </header>
+
+    <div class="article">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-sm-8">
+            <h1 class="title"><%= post.title %></h1>
+            <p class="byline"><%= post.author.name %> &middot; <%= post.date %></p>
+            <div class="content"><%- post.content %></div>
+          </div>
+        </div>
+      </div>
+    </div>
   </body>
 </html>
