@@ -51,8 +51,17 @@ router.get('/articles/:id', function(req, res, next) {
             if (JSON.parse(body).status == 'ok') {
                 var post = getPost(body);
 
-                res.render('article', {
-                    post: post 
+                //get main featured post
+                request('http://publish.the-backseat.com/?json=get_tag_posts&slug=main-feature&count=1', function(error, response, body) {
+                    //check for errors in API request
+                    if (!error && response.statusCode == 200) {
+                        var mainFeaturedPost = getMainFeaturedPost(body);
+
+                        res.render('article', {
+                            post: post,
+                            mainFeaturedPost: mainFeaturedPost
+                        });
+                    }
                 });
             } else {
                 var err = new Error('Not Found');

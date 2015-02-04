@@ -7,21 +7,27 @@
   font-weight: 300;
 }
 
-.article {
+.content {
   padding-top: 20px;
 }
-.title {
+.post .title {
   font-weight: 700;
   line-height: 1;
 }
-.byline {
+.post .byline {
   margin: 25px 0;
 }
-.content {
+.post .body {
   font-size: 15px;
   padding-bottom: 40px;
   border-bottom: 1px solid #e5e5e5;
 }
-.content p {
+.post .body p {
   margin-bottom: 20px;
+}
+.main-feature {
+  text-align: center;
+}
+.main-feature h2 {
+  font-size: 20px;
 }

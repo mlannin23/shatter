@@ -19,13 +19,24 @@
       </div>
     </header>
 
-    <div class="article">
+    <div class="content">
       <div class="container-fluid">
         <div class="row">
           <div class="col-sm-8">
-            <h1 class="title"><%= post.title %></h1>
-            <p class="byline"><%= post.author.name %> &middot; <%= post.date %></p>
-            <div class="content"><%- post.content %></div>
+            <div class="post">
+              <h1 class="title"><%= post.title %></h1>
+              <p class="byline"><%= post.author.name %> &middot; <%= post.date %></p>
+              <div class="body"><%- post.content %></div>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <% if (mainFeaturedPost) { %>
+              <div class="main-feature">
+                <img src="<%= mainFeaturedPost.thumbnailUrl %>" class="img-responsive">
+                <a href="<%= mainFeaturedPost.url %>"><h2><%= mainFeaturedPost.title %></h2></a>
+                <p>by <%= mainFeaturedPost.author.name %></p>
+              </div>
+            <% } %>
           </div>
         </div>
       </div>
