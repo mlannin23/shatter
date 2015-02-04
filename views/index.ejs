@@ -30,18 +30,22 @@
                 <p>by <%= mainFeaturedPost.author.name %></p>
               </div>
             <% } %>
-            <div class="feature">  
-              <div class="feature-1">
-                <img src="<%= featuredPosts[0].thumbnailUrl %>" class="img-responsive">
-                <a href="<%= featuredPosts[0].url %>"><h2><%= featuredPosts[0].title %></h2></a>
-                <p>by <%= featuredPosts[0].author.name %></p>
+            <% if (featuredPosts) { %>
+              <div class="feature">  
+                <div class="feature-1">
+                  <img src="<%= featuredPosts[0].thumbnailUrl %>" class="img-responsive">
+                  <a href="<%= featuredPosts[0].url %>"><h2><%= featuredPosts[0].title %></h2></a>
+                  <p>by <%= featuredPosts[0].author.name %></p>
+                </div>
+                <% if (featuredPosts.length > 1) { %>
+                  <div class="feature-2">
+                    <img src="<%= featuredPosts[1].thumbnailUrl %>" class="img-responsive">
+                    <a href="<%= featuredPosts[1].url %>"><h2><%= featuredPosts[1].title %></h2></a>
+                    <p>by <%= featuredPosts[1].author.name %></p>
+                  </div>
+                <% } %>
               </div>
-              <div class="feature-2">
-                <img src="<%= featuredPosts[1].thumbnailUrl %>" class="img-responsive">
-                <a href="<%= featuredPosts[1].url %>"><h2><%= featuredPosts[1].title %></h2></a>
-                <p>by <%= featuredPosts[1].author.name %></p>
-              </div>
-            </div>
+            <% } %>
             <div class="recent">
               <h2 class="page-header">Recent Posts</h2>
               <% for (i = 0; i < recentPosts.length; i++) { %>

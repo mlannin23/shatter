@@ -36,23 +36,32 @@ router.get('/home', function(req, res) {
 
             //get featured posts
             request('http://publish.the-backseat.com/?json=get_tag_posts&slug=feature&count=2', function(error, response, body) {
+                //check for errors in API request
                 if (!error && response.statusCode == 200) {
-                    var rawPosts = JSON.parse(body).posts,
-                        featuredPosts = [],
-                        i;
+                    var featuredPosts;
 
-                    for (i = 0; i < rawPosts.length; i++) {
-                        var title = rawPosts[i].title,
-                            author = rawPosts[i].author,
-                            thumbnailUrl = (rawPosts[i].thumbnail_images) ? rawPosts[i].thumbnail_images.medium.url : 'http://placehold.it/300x200',
-                            url = '/articles/' + rawPosts[i].id;
-                        
-                        featuredPosts.push({
-                            'title': title,
-                            'author': author,
-                            'thumbnailUrl': thumbnailUrl,
-                            'url': url
-                        });
+                    //check to see if there is a featured post
+                    if (JSON.parse(body).count > 0) {
+                        var rawPosts = JSON.parse(body).posts,
+                            i;
+
+                        featuredPosts = [];
+
+                        for (i = 0; i < rawPosts.length; i++) {
+                            var title = rawPosts[i].title,
+                                author = rawPosts[i].author,
+                                thumbnailUrl = (rawPosts[i].thumbnail_images) ? rawPosts[i].thumbnail_images.medium.url : 'http://placehold.it/300x200',
+                                url = '/articles/' + rawPosts[i].id;
+                            
+                            featuredPosts.push({
+                                'title': title,
+                                'author': author,
+                                'thumbnailUrl': thumbnailUrl,
+                                'url': url
+                            });
+                        }
+                    } else {
+                        featuredPosts = false;
                     }
 
                     //get latest posts
