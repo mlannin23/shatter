@@ -57,9 +57,18 @@ router.get('/articles/:id', function(req, res, next) {
                     if (!error && response.statusCode == 200) {
                         var mainFeaturedPost = getMainFeaturedPost(body);
 
-                        res.render('article', {
-                            post: post,
-                            mainFeaturedPost: mainFeaturedPost
+                        //get featured posts
+                        request('http://publish.the-backseat.com/?json=get_tag_posts&slug=feature&count=2', function(error, response, body) {
+                            //check for errors in API request
+                            if (!error && response.statusCode == 200) {
+                                var featuredPosts = getFeaturedPosts(body);
+
+                                res.render('article', {
+                                    post: post,
+                                    mainFeaturedPost: mainFeaturedPost,
+                                    featuredPosts: featuredPosts
+                                });
+                            }
                         });
                     }
                 });
