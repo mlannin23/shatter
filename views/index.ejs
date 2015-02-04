@@ -23,11 +23,13 @@
       <div class="container-fluid">
         <div class="row">
           <div class="col-sm-8">
-            <div class="main-feature">
-              <img src="<%= mainFeaturedPost.thumbnailUrl %>" class="img-responsive">
-              <a href="<%= mainFeaturedPost.url %>"><h2><%= mainFeaturedPost.title %></h2></a>
-              <p>by <%= mainFeaturedPost.author.name %></p>
-            </div>
+            <% if (mainFeaturedPost) { %>
+              <div class="main-feature">
+                <img src="<%= mainFeaturedPost.thumbnailUrl %>" class="img-responsive">
+                <a href="<%= mainFeaturedPost.url %>"><h2><%= mainFeaturedPost.title %></h2></a>
+                <p>by <%= mainFeaturedPost.author.name %></p>
+              </div>
+            <% } %>
             <div class="feature">  
               <div class="feature-1">
                 <img src="<%= featuredPosts[0].thumbnailUrl %>" class="img-responsive">

@@ -12,18 +12,27 @@ router.get('/home', function(req, res) {
 
     //get main featured post
     request('http://publish.the-backseat.com/?json=get_tag_posts&slug=main-feature&count=1', function(error, response, body) {
+        //check for errors in API request
         if (!error && response.statusCode == 200) {
-            var rawPost = JSON.parse(body).posts[0],
-                title = rawPost.title,
-                author = rawPost.author,
-                thumbnailUrl = (rawPost.thumbnail) ? rawPost.thumbnail : 'http://placehold.it/825x510',
-                url = '/articles/' + rawPost.id;
+            var mainFeaturedPost;
+
+            //check to see if there is a main featured post
+            if (JSON.parse(body).count > 0) {
+                var rawPost = JSON.parse(body).posts[0],
+                    title = rawPost.title,
+                    author = rawPost.author,
+                    thumbnailUrl = (rawPost.thumbnail) ? rawPost.thumbnail : 'http://placehold.it/825x510',
+                    url = '/articles/' + rawPost.id;
+                    
                 mainFeaturedPost = {
                     'title': title,
                     'author': author,
                     'thumbnailUrl': thumbnailUrl,
                     'url': url
                 };
+            } else {
+                mainFeaturedPost = false;
+            }
 
             //get featured posts
             request('http://publish.the-backseat.com/?json=get_tag_posts&slug=feature&count=2', function(error, response, body) {
