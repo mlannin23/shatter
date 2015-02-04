@@ -31,17 +31,25 @@
               </div>
             <% } %>
             <% if (featuredPosts) { %>
-              <div class="feature">  
-                <div class="feature-1">
-                  <img src="<%= featuredPosts[0].thumbnailUrl %>" class="img-responsive">
-                  <a href="<%= featuredPosts[0].url %>"><h2><%= featuredPosts[0].title %></h2></a>
-                  <p>by <%= featuredPosts[0].author.name %></p>
+              <div class="features">  
+                <div class="row feature">
+                  <div class="col-sm-5 col-xs-4">
+                    <img src="<%= featuredPosts[0].thumbnailUrl %>" class="img-responsive">
+                  </div>
+                  <div class="col-sm-7 col-xs-8">
+                    <a href="<%= featuredPosts[0].url %>"><h2><%= featuredPosts[0].title %></h2></a>
+                    <p>by <%= featuredPosts[0].author.name %></p>
+                  </div>
                 </div>
                 <% if (featuredPosts.length > 1) { %>
-                  <div class="feature-2">
-                    <img src="<%= featuredPosts[1].thumbnailUrl %>" class="img-responsive">
-                    <a href="<%= featuredPosts[1].url %>"><h2><%= featuredPosts[1].title %></h2></a>
-                    <p>by <%= featuredPosts[1].author.name %></p>
+                  <div class="row feature">
+                    <div class="col-sm-7 col-xs-8">
+                      <a href="<%= featuredPosts[1].url %>"><h2><%= featuredPosts[1].title %></h2></a>
+                      <p>by <%= featuredPosts[1].author.name %></p>
+                    </div>
+                    <div class="col-sm-5 col-xs-4">
+                      <img src="<%= featuredPosts[1].thumbnailUrl %>" class="img-responsive">
+                    </div>
                   </div>
                 <% } %>
               </div>
