@@ -81,28 +81,36 @@ router.get('/home', function(req, res) {
 });
 
 /* GET article page */
-router.get('/articles/:id', function(req, res) {
+router.get('/articles/:id', function(req, res, next) {
 
     //get article
     request('http://publish.the-backseat.com/?json=get_post&id=' + req.params.id, function(error, response, body) {
+        //check for errors in API request
         if (!error && response.statusCode == 200) {
-            var months = [ 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December' ],
-                rawPost = JSON.parse(body).post,
-                title = rawPost.title,
-                content = rawPost.content,
-                rawDate = new Date(rawPost.date),
-                date = months[rawDate.getMonth()] + ' ' + rawDate.getDate() + ', ' + rawDate.getFullYear(),
-                author = rawPost.author,
-                post = {
-                    'title': title,
-                    'content': content,
-                    'date': date,
-                    'author': author
-                };
+            //check to see if article found
+            if (JSON.parse(body).status == 'ok') {
+                var months = [ 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December' ],
+                    rawPost = JSON.parse(body).post,
+                    title = rawPost.title,
+                    content = rawPost.content,
+                    rawDate = new Date(rawPost.date),
+                    date = months[rawDate.getMonth()] + ' ' + rawDate.getDate() + ', ' + rawDate.getFullYear(),
+                    author = rawPost.author,
+                    post = {
+                        'title': title,
+                        'content': content,
+                        'date': date,
+                        'author': author
+                    };
 
-            res.render('article', {
-                post: post 
-            });
+                res.render('article', {
+                    post: post 
+                });
+            } else {
+                var err = new Error('Not Found');
+                err.status = 404;
+                next(err);
+            }
         }
     });
 });
