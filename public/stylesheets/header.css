@@ -1,0 +1,28 @@
+.header {
+  padding: 15px 0 10px;
+  border-bottom: 1px solid #e5e5e5;
+}
+.header h1 {
+  font-size: 32px;
+  font-weight: 300;
+  margin: 0;
+}
+@media (max-width: 768px) {
+  .header h1 {
+    text-align: center;
+  }
+}
+
+.follow {
+  list-style: none;
+  text-align: right;
+  margin: 0;
+  padding: 3px 0 0;
+}
+.follow li {
+  display: inline;
+  margin-left: 20px;
+}
+.follow li a {
+  color: #777;
+}
