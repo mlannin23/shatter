@@ -16,26 +16,36 @@ router.get('/home', function(req, res) {
         if (!error && response.statusCode == 200) {
             var mainFeaturedPost = getMainFeaturedPost(body);
 
-            //get featured posts
-            request('http://publish.the-backseat.com/?json=get_tag_posts&slug=feature&count=2', function(error, response, body) {
+            //get recommended posts
+            request('http://publish.the-backseat.com/?json=get_tag_posts&slug=recommended&count=3', function(error, response, body) {
                 //check for errors in API request
                 if (!error && response.statusCode == 200) {
-                    var featuredPosts = getFeaturedPosts(body);
+                    var recommendedPosts = getRecommendedPosts(body);
+                
 
-                    //get latest posts
-                    request('http://publish.the-backseat.com/?json=get_recent_posts', function(error, response, body) {
+                    //get featured posts
+                    request('http://publish.the-backseat.com/?json=get_tag_posts&slug=feature&count=2', function(error, response, body) {
+                        //check for errors in API request
                         if (!error && response.statusCode == 200) {
-                            var recentPosts = getRecentPosts(body);
+                            var featuredPosts = getFeaturedPosts(body);
 
-                            res.render('index', { 
-                                mainFeaturedPost: mainFeaturedPost,
-                                featuredPosts: featuredPosts,
-                                recentPosts: recentPosts
+                            //get latest posts
+                            request('http://publish.the-backseat.com/?json=get_recent_posts', function(error, response, body) {
+                                if (!error && response.statusCode == 200) {
+                                    var recentPosts = getRecentPosts(body);
+
+                                    res.render('index', { 
+                                        mainFeaturedPost: mainFeaturedPost,
+                                        recommendedPosts: recommendedPosts,
+                                        featuredPosts: featuredPosts,
+                                        recentPosts: recentPosts
+                                    });
+                                }
                             });
                         }
                     });
                 }
-            });
+            })
         }
     });
 });
@@ -133,6 +143,36 @@ function getFeaturedPosts(body) {
     }
 
     return featuredPosts;
+}
+
+function getRecommendedPosts(body) {
+    var featuredPosts;
+
+    //check to see if there is a recommended post
+    if (JSON.parse(body).count > 0) {
+        var rawPosts = JSON.parse(body).posts,
+            i;
+
+        recommendedPosts = [];
+
+        for (i = 0; i < rawPosts.length; i++) {
+            var title = rawPosts[i].title,
+                author = rawPosts[i].author,
+                thumbnailUrl = (rawPosts[i].thumbnail_images) ? rawPosts[i].thumbnail_images.medium.url : 'http://placehold.it/300x200',
+                url = '/articles/' + rawPosts[i].id;
+            
+            recommendedPosts.push({
+                'title': title,
+                'author': author,
+                'thumbnailUrl': thumbnailUrl,
+                'url': url
+            });
+        }
+    } else {
+        recommendedPosts = false;
+    }
+
+    return recommendedPosts;
 }
 
 function getRecentPosts(body) {

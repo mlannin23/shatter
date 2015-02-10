@@ -20,7 +20,7 @@
   margin-top: 20px;
 }
 .feature h2 {
-  margin-top: 5px;
+  margin-top: 10px;
   font-size: 24px;
 }
 
@@ -46,7 +46,25 @@
 }
 .recent-post h4 {
   margin-top: 5px;
+  margin-bottom: 5px;
 }
 .recent-post p {
   margin-bottom: 0;
+}
+
+.recommended {
+  text-align: center;
+}
+.recommended h2 {
+  font-size: 22px;
+  font-weight: 300;
+  margin-top: 10px;
+}
+.recommended-story {
+  padding-bottom: 30px;
+}
+.recommended-story h3 {
+  font-size: 18px;
+  margin-top: 15px;
+  margin-bottom: 5px;
 }

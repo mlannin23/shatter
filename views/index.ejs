@@ -65,6 +65,19 @@
               <% } %>
             </div>
           </div>
+          <div class="col-sm-4">
+            <% if (recommendedPosts) { %>
+              <div class="recommended">
+                <h2 class="page-header">Recommended Stories</h2>
+                <% for (i = 0; i < recommendedPosts.length; i++) { %>
+                  <div class="recommended-story">
+                    <img src="<%= recommendedPosts[i].thumbnailUrl %>" class="img-responsive center-block">
+                    <a href="<%= recommendedPosts[i].url %>"><h3><%= recommendedPosts[i].title %></h3></a>
+                    <p>by <%= recommendedPosts[i].author.name %></p>
+                  </div>
+                <% } %>
+              </div>
+            <% } %>
         </div>
       </div>
     </div>
