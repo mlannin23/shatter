@@ -23,7 +23,9 @@
           <div class="col-sm-8 col-sm-offset-2">
             <div class="post">
               <h1 class="title"><%= post.title %></h1>
-              <img src="<%= post.thumbnailUrl %>" class="img-responsive">
+              <% if (post.thumbnailUrl) { %>
+                <img src="<%= post.thumbnailUrl %>" class="img-responsive">
+              <% } %>
               <p class="byline"><%= post.author.name %> &middot; <%= post.date %></p>
               <div class="body"><%- post.content %></div>
             </div>
