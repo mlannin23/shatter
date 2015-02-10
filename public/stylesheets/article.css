@@ -1,5 +1,6 @@
-.content {
+.story {
   padding-top: 20px;
+  border-bottom: 1px solid #e5e5e5;
 }
 .post .title {
   font-weight: 700;
@@ -10,12 +11,12 @@
 }
 .post .body {
   font-size: 15px;
-  padding-bottom: 40px;
-  border-bottom: 1px solid #e5e5e5;
+  padding-bottom: 20px;
 }
 .post .body p {
   margin-bottom: 20px;
 }
+
 .featured-posts {
   font-size: 22px;
   font-weight: 300;

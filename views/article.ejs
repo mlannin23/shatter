@@ -17,16 +17,23 @@
   <body>
     <% include partials/header %>
 
-    <div class="content">
+    <div class="story">
       <div class="container-fluid">
         <div class="row">
-          <div class="col-sm-8">
+          <div class="col-sm-8 col-sm-offset-2">
             <div class="post">
               <h1 class="title"><%= post.title %></h1>
               <p class="byline"><%= post.author.name %> &middot; <%= post.date %></p>
               <div class="body"><%- post.content %></div>
             </div>
           </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="more">
+      <div class="container-fluid">
+        <div class="row">
           <div class="col-sm-4">
             <h2 class="featured-posts">Featured Posts</h2>
             <% if (mainFeaturedPost) { %>
@@ -64,5 +71,6 @@
         </div>
       </div>
     </div>
+    
   </body>
 </html>
