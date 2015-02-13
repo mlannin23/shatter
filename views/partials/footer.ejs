@@ -1,3 +1,39 @@
+<div class="modal" id="aboutModal" tabindex="-1" role="dialog" aria-labelledby="aboutModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="aboutModalLabel">About Us</h4>
+      </div>
+      <div class="modal-body">
+        <p>The Backseat is an online magazine, a digital space for emerging journalists to share deeply reported and thought-provoking stories.</p>
+        <p>The Backseat is for the contemplative observer: the smart and skeptical new adult who craves not just information, but nuanced commentary on culture, life, and today’s big issues. The Backseat writes for readers who can attain any information critical dissemination of this knowledge.</p>
+        <p>The Backseat was founded in 2015 by Sara Grossman, Anya Schultz, Michael Rosen, and Michael Lannin.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="contactModal" tabindex="-1" role="dialog" aria-labelledby="contactModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="contactModalLabel">Contact Us</h4>
+      </div>
+      <div class="modal-body">
+        Email us at thebackseatpitches@gmail.com
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <footer class="footer">
   <div class="container-fluid">
     <div class="row">
@@ -6,11 +42,14 @@
       </div>
       <div class="col-sm-6">
         <ul class="footer-links pull-right">
-          <li><a href="#">About</a></li>
+          <li><a href="#" data-toggle="modal" data-target="#aboutModal">About</a></li>
           <li>&middot;</li>
-          <li><a href="#">Contact</a></li>
+          <li><a href="#" data-toggle="modal" data-target="#contactModal">Contact</a></li>
         </ul>
       </div>
     </div>
   </div>
 </footer>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
