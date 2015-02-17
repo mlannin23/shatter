@@ -51,18 +51,6 @@
                 <% } %>
               </div>
             <% } %>
-            <div class="recent">
-              <h2 class="page-header">Latest Stories</h2>
-              <% for (i = 0; i < recentPosts.length; i++) { %>
-                <div class="recent-post <%= recentPosts[i].thumbnailUrl ? 'featured-image' : '' %>">
-                  <% if (recentPosts[i].thumbnailUrl) { %>
-                    <img src="<%= recentPosts[i].thumbnailUrl %>" class="img-responsive">
-                  <% } %>
-                  <a href="<%= recentPosts[i].url %>"><h4><%= recentPosts[i].title %></h4></a>
-                  <p>by <%= recentPosts[i].author.name %></p>
-                </div>
-              <% } %>
-            </div>
           </div>
           <div class="col-sm-4">
             <% if (recommendedPosts) { %>
@@ -77,6 +65,23 @@
                 <% } %>
               </div>
             <% } %>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-8">
+            <div class="recent">
+              <h2 class="page-header">Latest Stories</h2>
+              <% for (i = 0; i < recentPosts.length; i++) { %>
+                <div class="recent-post <%= recentPosts[i].thumbnailUrl ? 'featured-image' : '' %>">
+                  <% if (recentPosts[i].thumbnailUrl) { %>
+                    <img src="<%= recentPosts[i].thumbnailUrl %>" class="img-responsive">
+                  <% } %>
+                  <a href="<%= recentPosts[i].url %>"><h4><%= recentPosts[i].title %></h4></a>
+                  <p>by <%= recentPosts[i].author.name %></p>
+                </div>
+              <% } %>
+            </div>
+          </div>
         </div>
       </div>
     </div>
