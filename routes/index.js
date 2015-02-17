@@ -2,13 +2,8 @@ var express = require('express');
 var router = express.Router();
 var request = require('request');
 
-/* GET coming soon page */
-router.get('/', function(req, res) {
-    res.render('coming-soon');
-});
-
 /* GET home page */
-router.get('/home', function(req, res) {
+router.get('/', function(req, res) {
 
     //get main featured post
     request('http://publish.the-backseat.com/?json=get_tag_posts&slug=main-feature&count=1', function(error, response, body) {
