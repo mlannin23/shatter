@@ -40,9 +40,18 @@ h1, h2, h3, h4, h5, h6 {
   color: #444;
 }
 .footer-links {
+  float: right;
   padding: 0;
 }
 .footer-links li {
   display: inline;
   padding: 0 2px;
+}
+@media (max-width: 768px) {
+  .footer {
+    text-align: center;
+  }
+  .footer-links {
+    float: none;
+  }
 }
