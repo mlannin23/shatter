@@ -1,12 +1,15 @@
-.content {
+.main {
   padding-top: 20px;
 }
+
 .main-feature {
   text-align: center;
+  padding-bottom: 30px;
 }
 .main-feature h2 {
   font-size: 32px;
 }
+
 .features .row {
   margin-right: -8px;
   margin-left: -8px;
@@ -17,11 +20,23 @@
   padding-left: 8px;
 }
 .feature {
-  margin-top: 20px;
+  padding-bottom: 30px;
 }
 .feature h2 {
   margin-top: 10px;
   font-size: 24px;
+}
+
+.recommended {
+  text-align: center;
+}
+.recommended-story {
+  padding-bottom: 10px;
+}
+.recommended-story h3 {
+  font-size: 18px;
+  margin-top: 15px;
+  margin-bottom: 5px;
 }
 
 .recent {
@@ -50,21 +65,4 @@
 }
 .recent-post p {
   margin-bottom: 0;
-}
-
-.recommended {
-  text-align: center;
-}
-.recommended h2 {
-  font-size: 22px;
-  font-weight: 300;
-  margin-top: 10px;
-}
-.recommended-story {
-  padding-bottom: 30px;
-}
-.recommended-story h3 {
-  font-size: 18px;
-  margin-top: 15px;
-  margin-bottom: 5px;
 }
