@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var request = require('request');
 
-/* GET home page */
+/* Homepage */
 router.get('/', function(req, res) {
 
     //get main featured post
@@ -15,8 +15,7 @@ router.get('/', function(req, res) {
             request('http://publish.the-backseat.com/?json=get_tag_posts&slug=recommended&count=3', function(error, response, body) {
                 //check for errors in API request
                 if (!error && response.statusCode == 200) {
-                    var recommendedPosts = getRecommendedPosts(body);
-                
+                    var recommendedPosts = getRecommendedPosts(body); 
 
                     //get featured posts
                     request('http://publish.the-backseat.com/?json=get_tag_posts&slug=feature&count=2', function(error, response, body) {
@@ -45,14 +44,14 @@ router.get('/', function(req, res) {
     });
 });
 
-/* GET article page */
-router.get('/articles/:id', function(req, res, next) {
+/* Post page */
+router.get('/posts/:slug', function(req, res, next) {
 
-    //get article
-    request('http://publish.the-backseat.com/?json=get_post&id=' + req.params.id, function(error, response, body) {
+    //get post
+    request('http://publish.the-backseat.com/?json=get_post&slug=' + req.params.slug, function(error, response, body) {
         //check for errors in API request
         if (!error && response.statusCode == 200) {
-            //check to see if article found
+            //check to see if post found
             if (JSON.parse(body).status == 'ok') {
                 var post = getPost(body);
 
@@ -73,7 +72,56 @@ router.get('/articles/:id', function(req, res, next) {
                                     if (!error && response.statusCode == 200) {
                                         var recentPosts = getRecentPosts(body);
 
-                                        res.render('article', {
+                                        res.render('post', {
+                                            post: post,
+                                            mainFeaturedPost: mainFeaturedPost,
+                                            featuredPosts: featuredPosts,
+                                            recentPosts: recentPosts
+                                        });
+                                    }
+                                });
+                            }
+                        });
+                    }
+                });
+            } else {
+                var err = new Error('Not Found');
+                err.status = 404;
+                next(err);
+            }
+        }
+    });
+});
+
+/* Legacy article page */
+router.get('/articles/:id', function(req, res, next) {
+
+    //get post
+    request('http://publish.the-backseat.com/?json=get_post&slug=' + req.params.slug, function(error, response, body) {
+        //check for errors in API request
+        if (!error && response.statusCode == 200) {
+            //check to see if post found
+            if (JSON.parse(body).status == 'ok') {
+                var post = getPost(body);
+
+                //get main featured post
+                request('http://publish.the-backseat.com/?json=get_tag_posts&slug=main-feature&count=1', function(error, response, body) {
+                    //check for errors in API request
+                    if (!error && response.statusCode == 200) {
+                        var mainFeaturedPost = getMainFeaturedPost(body);
+
+                        //get featured posts
+                        request('http://publish.the-backseat.com/?json=get_tag_posts&slug=feature&count=2', function(error, response, body) {
+                            //check for errors in API request
+                            if (!error && response.statusCode == 200) {
+                                var featuredPosts = getFeaturedPosts(body);
+
+                                //get latest posts
+                                request('http://publish.the-backseat.com/?json=get_recent_posts', function(error, response, body) {
+                                    if (!error && response.statusCode == 200) {
+                                        var recentPosts = getRecentPosts(body);
+
+                                        res.render('post', {
                                             post: post,
                                             mainFeaturedPost: mainFeaturedPost,
                                             featuredPosts: featuredPosts,
@@ -103,7 +151,7 @@ function getMainFeaturedPost(body) {
             title = rawPost.title,
             author = rawPost.author,
             thumbnailUrl = (rawPost.thumbnail) ? rawPost.thumbnail : 'http://placehold.it/825x510',
-            url = '/articles/' + rawPost.id;
+            url = '/posts/' + rawPost.slug;
             
         mainFeaturedPost = {
             'title': title,
@@ -132,7 +180,7 @@ function getFeaturedPosts(body) {
             var title = rawPosts[i].title,
                 author = rawPosts[i].author,
                 thumbnailUrl = (rawPosts[i].thumbnail_images) ? rawPosts[i].thumbnail_images.medium.url : 'http://placehold.it/300x200',
-                url = '/articles/' + rawPosts[i].id;
+                url = '/posts/' + rawPosts[i].slug;
             
             featuredPosts.push({
                 'title': title,
@@ -162,7 +210,7 @@ function getRecommendedPosts(body) {
             var title = rawPosts[i].title,
                 author = rawPosts[i].author,
                 thumbnailUrl = (rawPosts[i].thumbnail_images) ? rawPosts[i].thumbnail_images.medium.url : 'http://placehold.it/300x200',
-                url = '/articles/' + rawPosts[i].id;
+                url = '/posts/' + rawPosts[i].slug;
             
             recommendedPosts.push({
                 'title': title,
@@ -187,7 +235,7 @@ function getRecentPosts(body) {
         var title = rawPosts[i].title,
             author = rawPosts[i].author,
             thumbnailUrl = (rawPosts[i].thumbnail_images) ? rawPosts[i].thumbnail_images.thumbnail.url : false,
-            url = '/articles/' + rawPosts[i].id;
+            url = '/posts/' + rawPosts[i].slug;
         
         recentPosts.push({
             'title': title,
