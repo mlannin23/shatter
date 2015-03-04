@@ -142,6 +142,31 @@ router.get('/articles/:id', function(req, res, next) {
     });
 });
 
+/* Author page */
+router.get('/authors/:slug', function(req, res, next) {
+
+    //get posts by author
+    request('http://publish.the-backseat.com/?json=get_author_posts&slug=' + req.params.slug, function(error, response, body) {
+        //check for errors in API request
+        if (!error && response.statusCode == 200) {
+            //check to see if post found
+            if (JSON.parse(body).status == 'ok') {
+                var author = getAuthor(body),
+                    posts = getPosts(body);
+
+                res.render('author', {
+                    author: author,
+                    posts: posts
+                });
+            } else {
+                var err = new Error('Not Found');
+                err.status = 404;
+                next(err);
+            }
+        }
+    });
+});
+
 function getMainFeaturedPost(body) {
     var mainFeaturedPost;
 
@@ -197,7 +222,7 @@ function getFeaturedPosts(body) {
 }
 
 function getRecommendedPosts(body) {
-    var featuredPosts;
+    var recommendedPosts;
 
     //check to see if there is a recommended post
     if (JSON.parse(body).count > 0) {
@@ -248,6 +273,36 @@ function getRecentPosts(body) {
     return recentPosts;
 }
 
+function getPosts(body) {
+    var posts;
+
+    //check to see if there are posts
+    if (JSON.parse(body).count > 0) {
+        var rawPosts = JSON.parse(body).posts,
+            i;
+
+        posts = [];
+
+        for (i = 0; i < rawPosts.length; i++) {
+            var title = rawPosts[i].title,
+                author = rawPosts[i].author,
+                thumbnailUrl = (rawPosts[i].thumbnail_images) ? rawPosts[i].thumbnail_images.thumbnail.url : false,
+                url = '/posts/' + rawPosts[i].slug;
+            
+            posts.push({
+                'title': title,
+                'author': author,
+                'thumbnailUrl': thumbnailUrl,
+                'url': url
+            });
+        }
+    } else {
+        posts = false;
+    }
+
+    return posts;
+}
+
 function getPost(body) {
     var post;
 
@@ -269,6 +324,12 @@ function getPost(body) {
     };
 
     return post;
+}
+
+function getAuthor(body) {
+    var author = JSON.parse(body).author;
+
+    return author;
 }
 
 module.exports = router;
