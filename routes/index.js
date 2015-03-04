@@ -96,55 +96,6 @@ router.get('/posts/:slug', function(req, res, next) {
     });
 });
 
-/* Legacy article page */
-router.get('/articles/:id', function(req, res, next) {
-
-    //get post
-    request('http://publish.the-backseat.com/?json=get_post&id=' + req.params.id, function(error, response, body) {
-        //check for errors in API request
-        if (!error && response.statusCode == 200) {
-            //check to see if post found
-            if (JSON.parse(body).status == 'ok') {
-                var post = getPost(body);
-
-                //get main featured post
-                request('http://publish.the-backseat.com/?json=get_tag_posts&slug=main-feature&count=1', function(error, response, body) {
-                    //check for errors in API request
-                    if (!error && response.statusCode == 200) {
-                        var mainFeaturedPost = getMainFeaturedPost(body);
-
-                        //get featured posts
-                        request('http://publish.the-backseat.com/?json=get_tag_posts&slug=feature&count=2', function(error, response, body) {
-                            //check for errors in API request
-                            if (!error && response.statusCode == 200) {
-                                var featuredPosts = getFeaturedPosts(body);
-
-                                //get latest posts
-                                request('http://publish.the-backseat.com/?json=get_recent_posts', function(error, response, body) {
-                                    if (!error && response.statusCode == 200) {
-                                        var recentPosts = getRecentPosts(body);
-
-                                        res.render('post', {
-                                            post: post,
-                                            mainFeaturedPost: mainFeaturedPost,
-                                            featuredPosts: featuredPosts,
-                                            recentPosts: recentPosts
-                                        });
-                                    }
-                                });
-                            }
-                        });
-                    }
-                });
-            } else {
-                var err = new Error('Not Found');
-                err.status = 404;
-                next(err);
-            }
-        }
-    });
-});
-
 /* Author page */
 router.get('/authors/:slug', function(req, res, next) {
 
