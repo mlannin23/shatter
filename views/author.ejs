@@ -33,7 +33,7 @@
                       <a href="<%= posts[i].url %>"><img src="<%= posts[i].thumbnailUrl %>" class="img-responsive"></a>
                     <% } %>
                     <a href="<%= posts[i].url %>"><h4><%= posts[i].title %></h4></a>
-                    <p>by <%= posts[i].author.name %></p>
+                    <p>by <a href="<%= '/authors/' + posts[i].author.slug %>" class="author-link"><%= posts[i].author.name %></a></p>
                   </div>
                 <% } %>
               </div>

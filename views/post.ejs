@@ -25,7 +25,7 @@
               <% if (post.thumbnailUrl) { %>
                 <img src="<%= post.thumbnailUrl %>" class="img-responsive">
               <% } %>
-              <p class="byline"><strong><%= post.author.name %> &middot; <%= post.date %></strong></p>
+              <p class="byline"><strong><a href="<%= '/authors/' + post.author.slug %>" class="author-link"><%= post.author.name %></a> &middot; <%= post.date %></strong></p>
               <div class="body"><%- post.content %></div>
             </div>
           </div>
@@ -45,7 +45,7 @@
                     <a href="<%= recentPosts[i].url %>"><img src="<%= recentPosts[i].thumbnailUrl %>" class="img-responsive"></a>
                   <% } %>
                   <a href="<%= recentPosts[i].url %>"><h4><%= recentPosts[i].title %></h4></a>
-                  <p>by <%= recentPosts[i].author.name %></p>
+                  <p>by <a href="<%= '/authors/' + recentPosts[i].author.slug %>" class="author-link"><%= recentPosts[i].author.name %></a></p>
                 </div>
               <% } %>
             </div>
@@ -55,7 +55,7 @@
               <div class="main-feature">
                 <a href="<%= mainFeaturedPost.url %>"><img src="<%= mainFeaturedPost.thumbnailUrl %>" class="img-responsive"></a>
                 <a href="<%= mainFeaturedPost.url %>"><h3><%= mainFeaturedPost.title %></h3></a>
-                <p>by <%= mainFeaturedPost.author.name %></p>
+                <p>by <a href="<%= '/authors/' + mainFeaturedPost.author.slug %>" class="author-link"><%= mainFeaturedPost.author.name %></a></p>
               </div>
             <% } %>
             <% if (featuredPosts) { %>
@@ -66,7 +66,7 @@
                   </div>
                   <div class="col-xs-8">
                     <a href="<%= featuredPosts[0].url %>"><h3><%= featuredPosts[0].title %></h3></a>
-                    <p>by <%= featuredPosts[0].author.name %></p>
+                    <p>by <a href="<%= '/authors/' + featuredPosts[0].author.slug %>" class="author-link"><%= featuredPosts[0].author.name %></a></p>
                   </div>
                 </div>
                 <% if (featuredPosts.length > 1) { %>
@@ -76,7 +76,7 @@
                     </div>
                     <div class="col-xs-8">
                       <a href="<%= featuredPosts[1].url %>"><h3><%= featuredPosts[1].title %></h3></a>
-                      <p>by <%= featuredPosts[1].author.name %></p>
+                      <p>by <a href="<%= '/authors/' + featuredPosts[1].author.slug %>" class="author-link"><%= featuredPosts[1].author.name %></a></p>
                     </div>
                   </div>
                 <% } %>

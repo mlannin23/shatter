@@ -24,7 +24,7 @@
               <div class="main-feature">
                 <a href="<%= mainFeaturedPost.url %>"><img src="<%= mainFeaturedPost.thumbnailUrl %>" class="img-responsive"></a>
                 <a href="<%= mainFeaturedPost.url %>"><h2><%= mainFeaturedPost.title %></h2></a>
-                <p>by <%= mainFeaturedPost.author.name %></p>
+                <p>by <a href="<%= '/authors/' + mainFeaturedPost.author.slug %>" class="author-link"><%= mainFeaturedPost.author.name %></a></p>
               </div>
             <% } %>
             <% if (featuredPosts) { %>
@@ -35,14 +35,14 @@
                   </div>
                   <div class="col-sm-7 col-xs-8">
                     <a href="<%= featuredPosts[0].url %>"><h2><%= featuredPosts[0].title %></h2></a>
-                    <p>by <%= featuredPosts[0].author.name %></p>
+                    <p>by <a href="<%= '/authors/' + featuredPosts[0].author.slug %>" class="author-link"><%= featuredPosts[0].author.name %></a></p>
                   </div>
                 </div>
                 <% if (featuredPosts.length > 1) { %>
                   <div class="row feature">
                     <div class="col-sm-7 col-xs-8">
                       <a href="<%= featuredPosts[1].url %>"><h2><%= featuredPosts[1].title %></h2></a>
-                      <p>by <%= featuredPosts[1].author.name %></p>
+                      <p>by <a href="<%= '/authors/' + featuredPosts[1].author.slug %>" class="author-link"><%= featuredPosts[1].author.name %></a></p>
                     </div>
                     <div class="col-sm-5 col-xs-4">
                       <a href="<%= featuredPosts[1].url %>"><img src="<%= featuredPosts[1].thumbnailUrl %>" class="img-responsive"></a>
@@ -59,7 +59,7 @@
                   <div class="recommended-story">
                     <a href="<%= recommendedPosts[i].url %>"><img src="<%= recommendedPosts[i].thumbnailUrl %>" class="img-responsive center-block"></a>
                     <a href="<%= recommendedPosts[i].url %>"><h3><%= recommendedPosts[i].title %></h3></a>
-                    <p>by <%= recommendedPosts[i].author.name %></p>
+                    <p>by <a href="<%= '/authors/' + recommendedPosts[i].author.slug %>" class="author-link"><%= recommendedPosts[i].author.name %></a></p>
                   </div>
                 <% } %>
               </div>
@@ -76,7 +76,7 @@
                     <a href="<%= recentPosts[i].url %>"><img src="<%= recentPosts[i].thumbnailUrl %>" class="img-responsive"></a>
                   <% } %>
                   <a href="<%= recentPosts[i].url %>"><h4><%= recentPosts[i].title %></h4></a>
-                  <p>by <%= recentPosts[i].author.name %></p>
+                  <p>by <a href="<%= '/authors/' + recentPosts[i].author.slug %>" class="author-link"><%= recentPosts[i].author.name %></a></p>
                 </div>
               <% } %>
             </div>

@@ -10,6 +10,13 @@ h1, h2, h3, h4, h5, h6 {
   max-width: 1024px;
 }
 
+.author-link {
+  color: #333;
+}
+.author-link:hover {
+  color: #333;
+}
+
 .header {
   padding: 10px 0;
   border-bottom: 1px solid #e5e5e5;
