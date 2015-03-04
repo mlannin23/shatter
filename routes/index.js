@@ -2,6 +2,9 @@ var express = require('express');
 var router = express.Router();
 var request = require('request');
 
+var LARGE = 0;
+var MEDIUM = 1;
+
 /* Homepage */
 router.get('/', function(req, res) {
 
@@ -9,24 +12,24 @@ router.get('/', function(req, res) {
     request('http://publish.the-backseat.com/?json=get_tag_posts&slug=main-feature&count=1', function(error, response, body) {
         //check for errors in API request
         if (!error && response.statusCode == 200) {
-            var mainFeaturedPost = getMainFeaturedPost(body);
+            var mainFeaturedPost = getPosts(body, LARGE)[0];
 
             //get recommended posts
             request('http://publish.the-backseat.com/?json=get_tag_posts&slug=recommended&count=3', function(error, response, body) {
                 //check for errors in API request
                 if (!error && response.statusCode == 200) {
-                    var recommendedPosts = getRecommendedPosts(body); 
+                    var recommendedPosts = getPosts(body, MEDIUM); 
 
                     //get featured posts
                     request('http://publish.the-backseat.com/?json=get_tag_posts&slug=feature&count=2', function(error, response, body) {
                         //check for errors in API request
                         if (!error && response.statusCode == 200) {
-                            var featuredPosts = getFeaturedPosts(body);
+                            var featuredPosts = getPosts(body, MEDIUM);
 
                             //get latest posts
                             request('http://publish.the-backseat.com/?json=get_recent_posts', function(error, response, body) {
                                 if (!error && response.statusCode == 200) {
-                                    var recentPosts = getRecentPosts(body);
+                                    var recentPosts = getPosts(body);
 
                                     res.render('index', { 
                                         mainFeaturedPost: mainFeaturedPost,
@@ -59,18 +62,18 @@ router.get('/posts/:slug', function(req, res, next) {
                 request('http://publish.the-backseat.com/?json=get_tag_posts&slug=main-feature&count=1', function(error, response, body) {
                     //check for errors in API request
                     if (!error && response.statusCode == 200) {
-                        var mainFeaturedPost = getMainFeaturedPost(body);
+                        var mainFeaturedPost = getPosts(body, LARGE)[0];
 
                         //get featured posts
                         request('http://publish.the-backseat.com/?json=get_tag_posts&slug=feature&count=2', function(error, response, body) {
                             //check for errors in API request
                             if (!error && response.statusCode == 200) {
-                                var featuredPosts = getFeaturedPosts(body);
+                                var featuredPosts = getPosts(body, MEDIUM);
 
                                 //get latest posts
                                 request('http://publish.the-backseat.com/?json=get_recent_posts', function(error, response, body) {
                                     if (!error && response.statusCode == 200) {
-                                        var recentPosts = getRecentPosts(body);
+                                        var recentPosts = getPosts(body);
 
                                         res.render('post', {
                                             post: post,
@@ -167,113 +170,7 @@ router.get('/authors/:slug', function(req, res, next) {
     });
 });
 
-function getMainFeaturedPost(body) {
-    var mainFeaturedPost;
-
-    //check to see if there is a main featured post
-    if (JSON.parse(body).count > 0) {
-        var rawPost = JSON.parse(body).posts[0],
-            title = rawPost.title,
-            author = rawPost.author,
-            thumbnailUrl = (rawPost.thumbnail) ? rawPost.thumbnail : 'http://placehold.it/825x510',
-            url = '/posts/' + rawPost.slug;
-            
-        mainFeaturedPost = {
-            'title': title,
-            'author': author,
-            'thumbnailUrl': thumbnailUrl,
-            'url': url
-        };
-    } else {
-        mainFeaturedPost = false;
-    }
-
-    return mainFeaturedPost;
-}
-
-function getFeaturedPosts(body) {
-    var featuredPosts;
-
-    //check to see if there is a featured post
-    if (JSON.parse(body).count > 0) {
-        var rawPosts = JSON.parse(body).posts,
-            i;
-
-        featuredPosts = [];
-
-        for (i = 0; i < rawPosts.length; i++) {
-            var title = rawPosts[i].title,
-                author = rawPosts[i].author,
-                thumbnailUrl = (rawPosts[i].thumbnail_images) ? rawPosts[i].thumbnail_images.medium.url : 'http://placehold.it/300x200',
-                url = '/posts/' + rawPosts[i].slug;
-            
-            featuredPosts.push({
-                'title': title,
-                'author': author,
-                'thumbnailUrl': thumbnailUrl,
-                'url': url
-            });
-        }
-    } else {
-        featuredPosts = false;
-    }
-
-    return featuredPosts;
-}
-
-function getRecommendedPosts(body) {
-    var recommendedPosts;
-
-    //check to see if there is a recommended post
-    if (JSON.parse(body).count > 0) {
-        var rawPosts = JSON.parse(body).posts,
-            i;
-
-        recommendedPosts = [];
-
-        for (i = 0; i < rawPosts.length; i++) {
-            var title = rawPosts[i].title,
-                author = rawPosts[i].author,
-                thumbnailUrl = (rawPosts[i].thumbnail_images) ? rawPosts[i].thumbnail_images.medium.url : 'http://placehold.it/300x200',
-                url = '/posts/' + rawPosts[i].slug;
-            
-            recommendedPosts.push({
-                'title': title,
-                'author': author,
-                'thumbnailUrl': thumbnailUrl,
-                'url': url
-            });
-        }
-    } else {
-        recommendedPosts = false;
-    }
-
-    return recommendedPosts;
-}
-
-function getRecentPosts(body) {
-    var rawPosts = JSON.parse(body).posts,
-        recentPosts = [],
-        i;
-
-    for (i = 0; i < rawPosts.length; i++) {
-        var title = rawPosts[i].title,
-            author = rawPosts[i].author,
-            thumbnailUrl = (rawPosts[i].thumbnail_images) ? rawPosts[i].thumbnail_images.thumbnail.url : false,
-            url = '/posts/' + rawPosts[i].slug;
-        
-        recentPosts.push({
-            'title': title,
-            'author': author,
-            'thumbnailUrl': thumbnailUrl,
-            'url': url
-        });
-    }
-
-    return recentPosts;
-}
-
-function getPosts(body) {
+function getPosts(body, thumbnailSize) {
     var posts;
 
     //check to see if there are posts
@@ -286,14 +183,21 @@ function getPosts(body) {
         for (i = 0; i < rawPosts.length; i++) {
             var title = rawPosts[i].title,
                 author = rawPosts[i].author,
-                thumbnailUrl = (rawPosts[i].thumbnail_images) ? rawPosts[i].thumbnail_images.thumbnail.url : false,
                 url = '/posts/' + rawPosts[i].slug;
             
+            if (thumbnailSize === LARGE) {
+                thumbnailUrl = (rawPosts[i].thumbnail) ? rawPosts[i].thumbnail : 'http://placehold.it/825x510';
+            } else if (thumbnailSize === MEDIUM) {
+                thumbnailUrl = (rawPosts[i].thumbnail_images) ? rawPosts[i].thumbnail_images.medium.url : 'http://placehold.it/300x200';
+            } else {
+                thumbnailUrl = (rawPosts[i].thumbnail_images) ? rawPosts[i].thumbnail_images.thumbnail.url : false;
+            }
+
             posts.push({
                 'title': title,
                 'author': author,
-                'thumbnailUrl': thumbnailUrl,
-                'url': url
+                'url': url,
+                'thumbnailUrl': thumbnailUrl
             });
         }
     } else {
