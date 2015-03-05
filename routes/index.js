@@ -59,7 +59,12 @@ router.get('/posts', function(req, res, next) {
                 var posts = getPosts(body);
 
                 res.render('posts', {
-                    posts: posts
+                    title: 'All Posts',
+                    label: false,
+                    header: 'All Posts',
+                    posts: posts,
+                    description: false,
+                    message: 'There are currently no posts'
                 });
             } else {
                 var err = new Error('Not Found');
@@ -131,9 +136,13 @@ router.get('/authors/:slug', function(req, res, next) {
                 var author = getAuthor(body),
                     posts = getPosts(body);
 
-                res.render('author', {
-                    author: author,
-                    posts: posts
+                res.render('posts', {
+                    title: author.name,
+                    label: 'posts by',
+                    header: author.name,
+                    posts: posts,
+                    description: author.description,
+                    message: 'This person has not authored any posts'
                 });
             } else {
                 var err = new Error('Not Found');
@@ -156,9 +165,13 @@ router.get('/tags/:slug', function(req, res, next) {
                 var tag = getTag(body),
                     posts = getPosts(body);
 
-                res.render('tag', {
-                    tag: tag,
-                    posts: posts
+                res.render('posts', {
+                    title: 'Posts tagged with &apos;' + tag.title + '&apos;',
+                    label: 'posts tagged with',
+                    header: '&apos;' + tag.title + '&apos;',
+                    posts: posts,
+                    description: false,
+                    message: 'There are no posts with this tag'
                 });
             } else {
                 var err = new Error('Not Found');

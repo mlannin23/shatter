@@ -5,24 +5,30 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>All Posts | The Backseat</title>
+    <title><%- title %> | The Backseat</title>
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Merriweather:300,300italic,400,400italic,700,700italic">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="/stylesheets/base.css">
-    <link rel="stylesheet" href="/stylesheets/list.css">
+    <link rel="stylesheet" href="/stylesheets/posts.css">
   </head>
   <body>
     <% include partials/header %>
 
-    <div class="list">
+    <div class="posts">
       <div class="container-fluid">
         <div class="row">
           <div class="col-sm-8 col-sm-offset-2">
-            <h2 class="page-header">All Posts</h2>
+            <% if (label) { %>
+              <p class="header-label"><%= label %></p>
+            <% } %>
+            <h2 class="page-header"><%- header %></h2>
+            <% if (description && description != "") { %>
+              <p><%= description %></p>
+            <% } %>
             <% if (posts) { %>
-              <div class="posts">
+              <div class="list">
                 <% for (i = 0; i < posts.length; i++) { %>
                   <div class="post <%= posts[i].thumbnailUrl ? 'featured-image' : '' %>">
                     <% if (posts[i].thumbnailUrl) { %>
@@ -34,7 +40,7 @@
                 <% } %>
               </div>
             <% } else { %>
-              <p class="message">There are currently no posts</p>
+              <p class="message"><%= message %></p>
             <% } %>
           </div>
         </div>
