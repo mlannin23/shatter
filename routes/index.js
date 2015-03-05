@@ -121,6 +121,31 @@ router.get('/authors/:slug', function(req, res, next) {
     });
 });
 
+/* Tag page */
+router.get('/tags/:slug', function(req, res, next) {
+
+    //get posts by author
+    request('http://publish.the-backseat.com/?json=get_tag_posts&slug=' + req.params.slug, function(error, response, body) {
+        //check for errors in API request
+        if (!error && response.statusCode == 200) {
+            //check to see if tag found
+            if (JSON.parse(body).status == 'ok') {
+                var tag = getTag(body),
+                    posts = getPosts(body);
+
+                res.render('tag', {
+                    tag: tag,
+                    posts: posts
+                });
+            } else {
+                var err = new Error('Not Found');
+                err.status = 404;
+                next(err);
+            }
+        }
+    });
+});
+
 function getPosts(body, thumbnailSize) {
     var posts;
 
@@ -185,6 +210,12 @@ function getAuthor(body) {
     var author = JSON.parse(body).author;
 
     return author;
+}
+
+function getTag(body) {
+    var tag = JSON.parse(body).tag;
+
+    return tag;
 }
 
 module.exports = router;

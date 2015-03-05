@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Posts tagged with <%= tag.title %> | The Backseat</title>
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Merriweather:300,300italic,400,400italic,700,700italic">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/stylesheets/base.css">
+    <link rel="stylesheet" href="/stylesheets/list.css">
+  </head>
+  <body>
+    <% include partials/header %>
+
+    <div class="list">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-sm-8 col-sm-offset-2">
+            <p class="header-label">posts tagged</p>
+            <h2 class="page-header"><%= tag.title %></h2>
+            <% if (posts) { %>
+              <div class="posts">
+                <% for (i = 0; i < posts.length; i++) { %>
+                  <div class="post <%= posts[i].thumbnailUrl ? 'featured-image' : '' %>">
+                    <% if (posts[i].thumbnailUrl) { %>
+                      <a href="<%= posts[i].url %>"><img src="<%= posts[i].thumbnailUrl %>" class="img-responsive"></a>
+                    <% } %>
+                    <a href="<%= posts[i].url %>"><h4><%= posts[i].title %></h4></a>
+                    <p>by <a href="<%= '/authors/' + posts[i].author.slug %>" class="author-link"><%= posts[i].author.name %></a></p>
+                  </div>
+                <% } %>
+              </div>
+            <% } else { %>
+              <p class="message">There are no posts with this tag</p>
+            <% } %>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <% include partials/footer %>
+  </body>
+</html>
