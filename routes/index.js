@@ -47,6 +47,29 @@ router.get('/', function(req, res) {
     });
 });
 
+/* Posts page */
+router.get('/posts', function(req, res, next) {
+
+    //get posts by author
+    request('http://publish.the-backseat.com/?json=get_posts', function(error, response, body) {
+        //check for errors in API request
+        if (!error && response.statusCode == 200) {
+            //check to see if post found
+            if (JSON.parse(body).status == 'ok') {
+                var posts = getPosts(body);
+
+                res.render('posts', {
+                    posts: posts
+                });
+            } else {
+                var err = new Error('Not Found');
+                err.status = 404;
+                next(err);
+            }
+        }
+    });
+});
+
 /* Post page */
 router.get('/posts/:slug', function(req, res, next) {
 
