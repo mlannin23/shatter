@@ -51,7 +51,7 @@ router.get('/', function(req, res) {
 router.get('/posts', function(req, res, next) {
 
     //get posts by author
-    request('http://publish.the-backseat.com/?json=get_posts', function(error, response, body) {
+    request('http://publish.the-backseat.com/?json=get_recent_posts&count=100', function(error, response, body) {
         //check for errors in API request
         if (!error && response.statusCode == 200) {
             //check to see if post found
