@@ -229,14 +229,16 @@ function getPost(body) {
         rawDate = new Date(rawPost.date),
         date = months[rawDate.getMonth()] + ' ' + rawDate.getDate() + ', ' + rawDate.getFullYear(),
         author = rawPost.author,
-        thumbnailUrl = (rawPost.thumbnail) ? rawPost.thumbnail : false;
+        thumbnailUrl = (rawPost.thumbnail) ? rawPost.thumbnail : false,
+        slug = rawPost.slug;
         
     post = {
         'title': title,
         'content': content,
         'date': date,
         'author': author,
-        'thumbnailUrl': thumbnailUrl
+        'thumbnailUrl': thumbnailUrl,
+        'slug': slug
     };
 
     return post;
