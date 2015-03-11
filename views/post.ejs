@@ -29,9 +29,28 @@
             <div class="post">
               <h1 class="title"><%= post.title %></h1>
               <% if (post.thumbnailUrl) { %>
-                <img src="<%= post.thumbnailUrl %>" class="img-responsive">
+                <img src="<%= post.thumbnailUrl %>" class="img-responsive center-block">
               <% } %>
-              <p class="byline"><strong><a href="<%= '/authors/' + post.author.slug %>" class="author-link"><%= post.author.name %></a> &middot; <%= post.date %></strong></p>
+              <div class="row byline-and-share">
+                <div class="col-sm-8">
+                  <p class="byline">
+                    <a href="<%= '/authors/' + post.author.slug %>" class="author-link"><%= post.author.name %></a> &middot; <%= post.date %>
+                  </p>
+                </div>
+                <div class="col-sm-4">
+                  <ul class="share">
+                    <li>
+                      <a class="facebook" href="<%= 'https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent('http://www.the-backseat.com/posts/' + post.slug) %>" target="_blank"><i class="fa fa-facebook"></i></a>
+                    </li>
+                    <li>
+                      <a class="twitter" href="<%= 'http://twitter.com/intent/tweet?url=' + encodeURIComponent('http://www.the-backseat.com/posts/' + post.slug) %>" target="_blank"><i class="fa fa-twitter"></i></a>
+                    </li>
+                    <li>
+                      <a class="email" href="<%= 'mailto:?body=' + encodeURIComponent('http://www.the-backseat.com/posts/' + post.slug) %>"><i class="fa fa-envelope"></i></a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
               <div class="body"><%- post.content %></div>
             </div>
           </div>

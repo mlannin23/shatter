@@ -7,9 +7,54 @@
   line-height: 1;
   margin-bottom: 20px;
 }
+.post .byline-and-share {
+  margin-top: 30px;
+  margin-bottom: 25px;
+}
 .post .byline {
   font-size: 15px;
-  margin: 30px 0 25px;
+  font-weight: 700;
+  margin: 5px 0 0;
+}
+.post .share {
+  list-style: none;
+  text-align: right;
+  margin: 0;
+  padding: 0;
+}
+@media (max-width: 768px) {
+  .post .share {
+    text-align: left;
+    margin-top: 15px;
+  }
+}
+.post .share li {
+  display: inline;
+  margin-left: 20px;
+}
+.post .share li:first-child {
+  margin-left: 0;
+}
+.post .share a {
+  color: #777;
+}
+.post .share .facebook .fa-facebook {
+  font-size: 25px;
+}
+.post .share .facebook:hover {
+  color: #3b5998;
+}
+.post .share .twitter .fa-twitter {
+  font-size: 28px;
+}
+.post .share .twitter:hover {
+  color: #55acee;
+}
+.post .share .email .fa-envelope {
+  font-size: 24px;
+}
+.post .share .email:hover {
+  color: #333;
 }
 .post .body {
   font-size: 15px;
