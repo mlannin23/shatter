@@ -58,6 +58,7 @@
 }
 .post .body {
   font-size: 15px;
+  line-height: 26px;
   padding-bottom: 20px;
 }
 .post .body p {
