@@ -50,8 +50,26 @@ router.get('/', function(req, res) {
 /* Posts page */
 router.get('/posts', function(req, res, next) {
 
-    //get posts by author
-    request('http://publish.the-backseat.com/?json=get_recent_posts&count=100', function(error, response, body) {
+    var url, title, label, header, message;
+
+    if (req.query.s) {
+        //get search results
+        url = 'http://publish.the-backseat.com/?json=get_search_results&count=100&search=' + req.query.s;
+        title = 'Search results for &apos;' + req.query.s + '&apos;';
+        label = 'search results for';
+        header = '&apos;' + req.query.s + '&apos;';
+        message = 'No results found';
+    } else {
+        //get all posts
+        url = 'http://publish.the-backseat.com/?json=get_recent_posts&count=100';
+        title = 'All Posts';
+        label = false;
+        header = 'All Posts';
+        message = 'There are currently no posts';
+    }
+
+    //get posts
+    request(url, function(error, response, body) {
         //check for errors in API request
         if (!error && response.statusCode == 200) {
             //check to see if post found
@@ -59,12 +77,12 @@ router.get('/posts', function(req, res, next) {
                 var posts = getPosts(body);
 
                 res.render('posts', {
-                    title: 'All Posts',
-                    label: false,
-                    header: 'All Posts',
+                    title: title,
+                    label: label,
+                    header: header,
                     posts: posts,
                     description: false,
-                    message: 'There are currently no posts'
+                    message: message
                 });
             } else {
                 var err = new Error('Not Found');

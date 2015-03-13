@@ -27,9 +27,37 @@ h1, h2, h3, h4, h5, h6 {
     margin-right: auto;
   }
 }
+.header .search-and-follow {
+  float: right;
+}
+.header .search {
+  float: left;
+  padding-top: 4px;
+}
+.header .search-text {
+  padding: 6px 12px;
+  color: #444;
+  border: 1px solid #ccc;
+  border-radius: 14px 0 0 14px;
+}
+.header .search-text:focus {
+  border-color: #ccc;
+  outline: 0;
+  box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(204,204,204,.6);
+  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(204,204,204,.6);
+}
+.header .search-button {
+  margin-left: -5px;
+  padding: 6px 14px 6px 10px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 0 14px 14px 0;
+  color: #777;
+}
 .header .follow {
+  display: block;
+  float: left;
   list-style: none;
-  text-align: right;
   margin: 0;
   padding: 8px 0 0;
 }
