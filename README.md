@@ -14,7 +14,11 @@ Then load [http://localhost:9000](http://localhost:9000) in your browser to acce
 
 ## Deployment
 
-Deploying to [Heroku](https://www.heroku.com/) is simple.
+If you have not deployed before, you must add the [Heroku](https://www.heroku.com/) remote.
+
+	git remote add heroku git@heroku.com:the-backseat.git
+
+Deploying to Heroku is simple.
 
 	git push heroku master
 
