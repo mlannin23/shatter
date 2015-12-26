@@ -1,4 +1,4 @@
-# the backseat
+# The Backseat
 
 ## Installation
 
